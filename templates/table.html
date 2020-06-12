@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>留言板</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+
+	<div class="row" style="margin-top: 2%">
+		<div class="col-sm-2">
+			<button type="button" class="btn btn-default">查看全部留言</button>
+		</div>
+
+		<div class="col-sm-8" id="func">
+			<div class="col-sm-3"></div>
+			<div class="col-sm-1">
+				<img src="../static/avatar.png" style="width: 35px; height: 35px;">
+			</div>
+			<form role="form" class="form-inline">
+				<input type="text" class="form-control" name="search">
+				<button class="btn btn-default" type="submit">搜索</button>
+			</form>
+		</div>
+
+		<div class="col-sm-2">
+			<script>
+					function jump(next_page) {
+						// 不可以这样，url有可能因为搜索等操作发生改变，需要做正则提取
+						var url = window.location.href;
+						window.location.href = url+'/'+next_page;
+					}
+				</script>
+			<button class="btn btn-success" type="button" onclick="jump('release')">我要留言</button>
+			<button class="btn btn-default" type="button" onclick="jump('profile')">我的</button>
+		</div>
+	</div>
+
+
+	<div class="row">
+		<div class="col-sm-12">
+			<table class="table table-hover table-bordered">
+				<caption class="text-center">留言板</caption>
+				<thead>
+					<tr>
+						<th class="text-center col-sm-1">发布者</th>
+						<th class="col-sm-8 text-center">内容</th>
+						<th class="text-center col-sm-1">发布时间</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for i in message_list %}
+					<tr>
+						<td class="text-center">{{i[0]}}</td>
+						<td class="text-center">{{i[1]}}</td>
+						<td class="text-center">{{i[2]}}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-9">
+			<form class="form-inline" role="form">
+				<label for="page" ></label>
+				<input id="page" class="form-control col-sm-4" type="number" placeholder="请输入想要跳转的页码">
+				<button class="btn btn-default" type="submit">跳转</button>
+			</form>
+		</div>
+		<div class="col-sm-1">
+			<h5 class="text-info">{{cur_page}}/{{total_page}}</h5>
+		</div>
+		<div class="col-sm-2">
+			<div class="btn-group">
+				<button type="submit" class="btn btn-default" id="last">上一页</button>
+				<button type="submit" class="btn btn-default" id="next">下一页</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
