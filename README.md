@@ -25,15 +25,6 @@
 - 能根据留言的<u>发布者</u>，和留言<u>内容</u>，做<u>模糊查询</u>;  
 - 基于flask框架.
 
-***
-
-# Structure
-bbs-demo: main  
-docs  
-model: SQL, userModel etc  
-static: config and Flask   
-util
-
 # 备忘
 
 1. 用户profile记得修改密码功能
