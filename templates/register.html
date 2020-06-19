@@ -17,9 +17,9 @@
     <form class="form-horizontal" name="reg_form" role="form" onsubmit="return validate_data()"
           action="{{ url_for('register') }}" method="POST">
         <div class="form-group">
-            <label for="nickname" class="col-sm-4 control-label">昵称</label>
+            <label for="username" class="col-sm-4 control-label">用户名</label>
             <div class="col-sm-5">
-              <input type="text" class="form-control" id="nickname" name="nickname" placeholder="昵称不多于20字，可包含中文、英文、数字">
+              <input type="text" class="form-control" id="username" name="username" placeholder="昵称不多于20字，可包含中文、英文、数字">
             </div>
         </div>
         <div class="form-group">
@@ -28,7 +28,12 @@
               <input type="password" class="form-control" id="password" name="password" placeholder="密码不多于20字，只能包含数字和字母">
             </div>
         </div>
-
+        <div class="form-group">
+            <label for="repeat" class="col-sm-4 control-label">再次输入密码</label>
+            <div class="col-sm-5">
+              <input type="password" class="form-control" id="repeat" name="repeat">
+            </div>
+        </div>
         <div class="form-group">
             <div align="center">
                 <button type="submit" class="btn btn-success" style="margin-right: 20px">注册</button>

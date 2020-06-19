@@ -1,4 +1,4 @@
-from flask import Flask
+import os
 
 
 class Config:
@@ -19,6 +19,8 @@ class Config:
 
     SQLALCHEMY_TRACK_MODIFICATIONS = True
 
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
 
-app = Flask(__name__, template_folder='templates', static_folder='static')
-app.config.from_object(Config)
+#
+# app = Flask(__name__, template_folder='templates', static_folder='static')
+# app.config.from_object(Config)

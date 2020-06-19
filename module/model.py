@@ -1,6 +1,6 @@
-from flask_sqlalchemy import SQLAlchemy
-from config import app
-db = SQLAlchemy(app)
+from flask_login import UserMixin
+from app import db, login
+from util import encryption
 
 
 class Message(db.Model):
@@ -9,15 +9,29 @@ class Message(db.Model):
 
     id = db.Column(db.INTEGER(), primary_key=True)
     content = db.Column(db.String(511))
-    nickname = db.Column(db.String(20))
+    username = db.Column(db.String(20))
     time = db.Column(db.DATETIME())
     is_deleted = db.Column(db.INTEGER())
 
 
-class User(db.Model):
+@login.user_loader
+def load_user(user_id):
+    return User.query.filter_by(user_id=user_id).first()
+
+
+class User(UserMixin, db.Model):
     __tablename__ = 'users'
 
     user_id = db.Column(db.INTEGER(), primary_key=True)
-    nickname = db.Column(db.String(255))
+    username = db.Column(db.String(255))
     password = db.Column(db.String(255))
     register_date = db.Column(db.String())
+
+    def __repr__(self):
+        return f'<User: {self.username}>'
+
+    def check_password(self, password):
+        return self.password == encryption(password)
+
+    def get_id(self):
+        return self.user_id

@@ -10,20 +10,20 @@ def get_time():
 
 
 # didn't use
-def check(content=None, nickname=None, time=None):
+def check(content=None, username=None, time=None):
     """
     检查所给值是否符合表头数据类型和长度的要求
     :param content: content列内容，type=str, len < 511
-    :param nickname: 留言人，type=str, len<20
+    :param username: 留言人，type=str, len<20
     :param time: 留言时间，type=datetime, %Y-%m-%d %H:%M:%S, 使用datetime类，由getTime()获取
     :return: 无返回值，需要异常捕获
     """
     check_data = {
         'content': (str, 511),
-        'nickname': (str, 20),
+        'username': (str, 20),
         'time': (str, 19)
     }
-    values = [content, nickname, time]
+    values = [content, username, time]
     keys = list(check_data.keys())
     try:
         for ind, i in enumerate(values):
@@ -53,9 +53,9 @@ class SQL:
         self.__session = db.session
 
     @exception_handler
-    def login(self, nickname, password) -> User:
+    def login(self, username, password) -> User:
         cmp = encryption(password)
-        user: list[User] = self.__session.query(User).filter(User.nickname == nickname).all()
+        user: list[User] = self.__session.query(User).filter(User.username == username).all()
         if len(user) == 0:
             return None
         else:
@@ -66,11 +66,11 @@ class SQL:
                 return None
 
     @exception_handler
-    def register(self, nickname, password) -> bool:
-        res = self.__session.query(User).filter(User.nickname == nickname).all()
+    def register(self, username, password) -> bool:
+        res = self.__session.query(User).filter(User.username == username).all()
         if len(res) == 0:
             cmp = encryption(password)
-            new_user = User(nickname=nickname, password=cmp, register_date=get_time())
+            new_user = User(username=username, password=cmp, register_date=get_time())
             self.__session.add(new_user)
             self.__session.commit()
             return True
@@ -78,9 +78,9 @@ class SQL:
             return False
 
     @exception_handler
-    def insert(self, content, nickname, time):
+    def insert_message(self, content, username):
         # 由于主键id默认了自增加，所以新建时为写id的值
-        new_message = Message(content=content, nickname=nickname, time=time, is_deleted=0)
+        new_message = Message(content=content, username=username, time=get_time(), is_deleted=0)
         self.__session.add(new_message)
         self.__session.commit()
 
@@ -92,14 +92,14 @@ class SQL:
         else:
             return ls[0]
 
-    def message_search(self, user_id=None, nickname=None) -> List[Message]:
+    def message_search(self, user_id=None, username=None) -> List[Message]:
         try:
             session = self.__session
             res = session.query(Message).filter(Message.is_deleted == 0)
             if isinstance(user_id, int):
                 res = res.filter(Message.id == user_id).all()
-            elif isinstance(nickname, str):
-                res = res.filter(Message.nickname == nickname).all()
+            elif isinstance(username, str):
+                res = res.filter(Message.username == username).all()
             else:
                 res = res.all()
             return res
@@ -142,7 +142,7 @@ if __name__ == '__main__':
     #     sql.insert('test', '小明', get_time())
     #     sql.delete(10)
     #     sql.update(1, 'changed', get_time())
-    #     for msg in sql.search(nickname='wzx'):
+    #     for msg in sql.search(username='wzx'):
     #         msg: Message
     #         print(msg.content)
     #     sql.close()

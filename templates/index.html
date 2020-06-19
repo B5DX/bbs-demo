@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
 	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="../static/js/util.js"></script>
 </head>
 <body>
 <div class="container">
@@ -27,15 +28,15 @@
 		</div>
 
 		<div class="col-sm-2">
-			<script>
-					function jump(next_page) {
-						// 不可以这样，url有可能因为搜索等操作发生改变，需要做正则提取
-						var url = window.location.href;
-						window.location.href = url+'/'+next_page;
-					}
-				</script>
-			<button class="btn btn-success" type="button" onclick="jump('release')">我要留言</button>
-			<button class="btn btn-default" type="button" onclick="jump('profile')">我的</button>
+<!--			{% with messages = get_flashed_messages() %}-->
+			{% if current_user.is_authenticated %}
+			<button class="btn btn-success" type="button" onclick="jump2next('release')">我要留言</button>
+			<button class="btn btn-default" type="button" onclick="jump2next('profile')">我的</button>
+			{% else %}
+			<button class="btn btn-success" type="button" onclick="jump2next('login')">登录</button>
+			{% endif %}
+<!--			{% endwith %}-->
+
 		</div>
 	</div>
 

@@ -8,7 +8,7 @@ def check_str(target: str, s: str) -> bool:
         for i in s:
             if not (i.isalpha() or i.isdigit()):
                 return False
-    elif target == 'nickname':
+    elif target == 'username':
         for i in s:
             if not (i.isalpha() or i.isdigit()) and not (u'\u4e00' <= i <= u'\u9fff'):
                 return False
@@ -27,4 +27,4 @@ def get_encrypted_code(password) -> str:
 
 if __name__ == '__main__':
     test = '....'
-    print(check_str(test, 'nickname'))
+    print(check_str(test, 'username'))
