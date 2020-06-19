@@ -1,4 +1,8 @@
-function jump2next(next) {
+function jump2next(next, if_new_window) {
     var url = window.location.href;
-    window.location.href = url.substring(0, url.lastIndexOf('/')) + '/' + next;
+    var next_url = url.substring(0, url.lastIndexOf('/')) + '/' + next;
+    if (if_new_window)
+        window.open(next_url);
+    else
+        window.location.href = next_url;
 }

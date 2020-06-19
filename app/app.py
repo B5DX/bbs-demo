@@ -1,7 +1,8 @@
 from flask import url_for, request, redirect, render_template
-from app import app
 from flask_login import current_user, login_user, logout_user
-from module import sql, User
+from module import sql, User, Message
+from math import ceil
+from app import app
 
 
 @app.route('/')
@@ -11,10 +12,17 @@ def index():
     after sign in successfully, show the page for certain user by user_id
     :return: None
     """
-    message_list = sql.message_search()
-    message_list = [[i.username, i.content, i.time, i] for i in reversed(message_list)]
+    page = request.args.get('page', 1, type=int)
+    message_length = sql.get_message_length()
+    total_page = ceil(message_length / app.config['POSTS_PER_PAGE'])
+    messages = Message.query.order_by(Message.time.desc()).paginate(
+        page, app.config['POSTS_PER_PAGE'], False
+    )
+    next_url = url_for('index', page=messages.next_num) if messages.has_next else None
+    pre_url = url_for('index', page=messages.prev_num) if messages.has_prev else None
 
-    return render_template('index.html', message_list=message_list, cur_page=1, total_page=10)
+    return render_template('index.html', message_list=messages.items, next_url=next_url,
+                           pre_url=pre_url, cur_page=page.numerator, total_page=total_page)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -104,6 +112,13 @@ def modify():
     render_template('release.html')
 
 
+@app.route('/search')
+def search():
+    keyword = request.args.get('keyword')
+    result = sql.search_message(keyword)
+    return render_template('search.html', message_list = result)
+
+
 @app.route('/logout')
 def logout():
     if not current_user.is_authenticated:
@@ -122,10 +137,3 @@ def change_password():
 
 if __name__ == '__main__':
     app.run()
-
-
-# def authentication(encrypted_code, user_id) -> bool:
-#     user = sql.user_search(user_id)
-#     if user is None or get_encrypted_code(user.password) != encrypted_code:
-#         return False
-#     return True

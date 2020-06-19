@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="../static/js/util.js"></script>
+    <title>搜索结果</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+		{% if message_list %}
+        <div class="col-sm-1"></div>
+		<div class="col-sm-10">
+			<table class="table table-hover table-bordered" style="word-break: break-all;">
+				<caption class="text-center">搜索结果</caption>
+				<thead>
+					<tr>
+						<th class="text-center col-sm-2">发布者</th>
+						<th class="text-center col-sm-8">内容</th>
+						<th class="text-center col-sm-2">发布时间</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for i in message_list %}
+					<tr>
+						<td class="text-center">{{i.username}}</td>
+						<td class="text-center">
+							{% for line in i.content.split('\n') %}
+							<p>{{line}}</p>
+							{% endfor %}
+						</td>
+						<td class="text-center">
+								{{i.time}}
+						</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		{% else %}
+		<h3 class="center-block">抱歉，未找到匹配的留言</h3>
+		{% endif %}
+    </div>
+</div>
+</body>
+</html>

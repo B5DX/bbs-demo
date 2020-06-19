@@ -2,11 +2,12 @@ from module.model import Message, User, db
 from datetime import datetime
 from util import encryption
 from typing import List
+from sqlalchemy import func, or_
 
 
 def get_time():
     now = datetime.now()
-    return now.strftime('%Y-%m-%d %H:%M:%S')
+    return now.strftime('%Y-%m-%d  %H:%M:%S')
 
 
 # didn't use
@@ -92,20 +93,29 @@ class SQL:
         else:
             return ls[0]
 
-    def message_search(self, user_id=None, username=None) -> List[Message]:
-        try:
-            session = self.__session
-            res = session.query(Message).filter(Message.is_deleted == 0)
-            if isinstance(user_id, int):
-                res = res.filter(Message.id == user_id).all()
-            elif isinstance(username, str):
-                res = res.filter(Message.username == username).all()
-            else:
-                res = res.all()
-            return res
-        except Exception:
-            print('search failed.')
-            return []
+    # def search_message(self, user_id=None, username=None) -> List[Message]:
+    #     try:
+    #         session = self.__session
+    #         res = session.query(Message).filter(Message.is_deleted == 0)
+    #         if isinstance(user_id, int):
+    #             res = res.filter(Message.id == user_id).all()
+    #         elif isinstance(username, str):
+    #             res = res.filter(Message.username == username).all()
+    #         else:
+    #             res = res.all()
+    #         return res
+    #     except Exception:
+    #         print('search failed.')
+    #         return []
+
+    def search_message(self, keyword):
+        result = Message.query.filter(
+            or_(Message.content.contains(keyword), Message.username.contains(keyword))
+        ).all()
+        return result
+
+    def get_message_length(self):
+        return self.__session.query(func.count(Message.id)).scalar()
 
     @exception_handler
     def update(self, user_id, new_content, new_time):
