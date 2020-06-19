@@ -1,19 +1,22 @@
-from flask import url_for, request, redirect, render_template, flash
+from flask import url_for, request, redirect, render_template
 from app import app
 from flask_login import current_user, login_user, logout_user
 from module import sql, User
 
 
 @app.route('/')
-def root():
+@app.route('/index')
+def index():
     """
-    redirect to '/login'
+    after sign in successfully, show the page for certain user by user_id
+    :return: None
     """
-    # return render_template('index.html', login=False)
-    return redirect(url_for('index'))
+    message_list = sql.message_search()
+    message_list = [[i.username, i.content, i.time, i] for i in reversed(message_list)]
+
+    return render_template('index.html', message_list=message_list, cur_page=1, total_page=10)
 
 
-# finished
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     """
@@ -56,26 +59,11 @@ def register():
         if repeat != password:
             return render_template('register.html', note='两次输入的密码不同')
         elif sql.register(username, password):
-            return redirect('/login')
+            return redirect(url_for('login'))
         else:
             return render_template('register.html', note='用户名已存在')
         # res = sql
     return render_template('register.html', note='欢迎注册')
-
-
-@app.route('/index')
-def index():
-    """
-    after sign in successfully, show the page for certain user by user_id
-    :param encrypted_code: the encrypted_code is a str which can authenticate if this is a valid url.
-    :param user_id: the id for the signed user
-    :return: None
-    """
-    message_list = sql.message_search()
-    message_list = [[i.username, i.content, i.time, i] for i in message_list]
-    # if current_user.is_authenticated:
-    #     flash('login')
-    return render_template('index.html', message_list=message_list, cur_page=1, total_page=10)
 
 
 @app.route('/profile')
@@ -83,8 +71,6 @@ def profile():
     """
     get profile page of certain user
     """
-    # if not authentication(encrypted_code, user_id):
-    #     return '无效路径，请注册登录'
     if not current_user.is_authenticated:
         return redirect(url_for('index'))
 
@@ -102,6 +88,7 @@ def release():
     if request.method == 'POST':
         content = request.form['content']
         sql.insert_message(content, current_user.username)
+        return redirect(url_for('index'))
 
     return render_template('release.html')
 
@@ -111,8 +98,6 @@ def modify():
     """
     modify a message
     """
-    # if not authentication(encrypted_code, user_id):
-    #     return '无效路径，请注册登录'
     if not current_user.is_authenticated:
         return redirect(url_for('index'))
 

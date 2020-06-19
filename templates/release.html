@@ -1,11 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>发布</title>
-    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   <meta charset="UTF-8">
+   <title>发布</title>
+   <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+   <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+   <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   <script src="../static/js/util.js"></script>
+   <script>
+      function release() {
+         var s = document.forms['release_form']['content'].value;
+         if (s.length == 0) {
+            alert('输入内容不能为空');
+            return false;
+         }
+         return true;
+      }
+
+      // function next_page() {
+      //    var s = document.forms['release_form']['content'].value;
+      //    if (s.length != 0) {
+      //       // alert(window.location.href);
+      //       window.location.href = 'index';
+      //    }
+      // }
+   </script>
 </head>
 <body>
 
@@ -16,10 +35,10 @@
    <div class="row">
       <div class="col-sm-2"></div>
       <div class="col-sm-8">
-         <form role="form">
+         <form role="form" onsubmit="return release()" action="{{ url_for('release') }}" method="POST" name="release_form">
             <div class="form-group">
-               <label for="textarea"><h3>内容</h3></label>
-               <textarea class="form-control" rows="4" id="textarea" name="content"></textarea>
+               <h3><label for="textarea">内容</label></h3>
+               <textarea class="form-control" rows="4" id="textarea" name="content" placeholder="留言不多于255字"></textarea>
             </div>
             <div class="col-sm-9"></div>
             <div class="col-sm-3 button-group">

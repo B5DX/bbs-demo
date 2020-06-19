@@ -19,8 +19,8 @@ class Config:
 
     SQLALCHEMY_TRACK_MODIFICATIONS = True
 
+    # 用户登录需要用
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
 
-#
-# app = Flask(__name__, template_folder='templates', static_folder='static')
-# app.config.from_object(Config)
+    # 分页展示的设置
+    POSTS_PER_PAGE = 10

@@ -21,10 +21,6 @@ def encryption(password:str):
     return secr.hexdigest()
 
 
-def get_encrypted_code(password) -> str:
-    return str(password)[:10]
-
-
 if __name__ == '__main__':
     test = '....'
     print(check_str(test, 'username'))
