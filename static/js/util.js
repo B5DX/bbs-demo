@@ -8,7 +8,17 @@ function jump2next(next, if_new_window) {
 }
 
 function if_empty(value) {
-    var re = /[^\S*&]/;
+    var re = /^\s*$/;
     var flag = re.test(value);
     return (value.length === 0 || flag);
+}
+
+function count_lines(s) {
+    var cnt = 0;
+    for (var i=0; i<s.length; i++) {
+        if (s[i] === '\n') {
+            cnt++;
+        }
+    }
+    return cnt;
 }

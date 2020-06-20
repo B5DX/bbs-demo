@@ -112,8 +112,15 @@ def modify(message_id):
     """
     if not current_user.is_authenticated:
         return redirect(url_for('index'))
+    # 是否需要检测非法访问??
 
-    render_template('release.html')
+    if request.method == 'POST':
+        sql.update(message_id, request.form['content'])
+        return redirect(url_for('profile'))
+
+    target_mes: Message = Message.query.filter_by(id=message_id).first()
+
+    return render_template('release.html', message=target_mes)
 
 
 @app.route('/search')
@@ -130,6 +137,14 @@ def logout():
 
     logout_user()
     return redirect(url_for('index'))
+
+
+@app.route('/delete/<message_id>')
+def delete(message_id):
+    sql.delete(message_id)
+    # 未增加删除权限验证
+
+    return redirect(url_for('profile'))
 
 
 @app.route('/change_password', methods=['GET', 'POST'])

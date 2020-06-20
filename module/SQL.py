@@ -118,13 +118,13 @@ class SQL:
         return self.__session.query(func.count(Message.id)).scalar()
 
     @exception_handler
-    def update(self, user_id, new_content, new_time):
-        self.__session.query(Message).filter(Message.id == user_id).update({'content': new_content, 'time': new_time})
+    def update(self, message_id, new_content):
+        self.__session.query(Message).filter(Message.id == message_id).update({'content': new_content, 'time': get_time()})
         self.__session.commit()
 
     @exception_handler
-    def delete(self, user_id):
-        self.__session.query(Message).filter(Message.id == user_id).update({'is_deleted': 1})
+    def delete(self, message_id):
+        self.__session.query(Message).filter(Message.id == message_id).delete()
         self.__session.commit()
 
     @exception_handler
