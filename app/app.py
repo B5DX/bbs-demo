@@ -1,4 +1,4 @@
-from flask import url_for, request, redirect, render_template
+from flask import url_for, request, redirect, render_template, flash
 from flask_login import current_user, login_user, logout_user
 from module import sql, User, Message
 from math import ceil
@@ -29,7 +29,7 @@ def index():
                            pre_url=pre_url, cur_page=page.numerator, total_page=total_page)
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['POST'])
 def login():
     """
     page for signing in.
@@ -38,22 +38,20 @@ def login():
     else return templates 'sign.html'
     """
     if current_user.is_authenticated:
-        # flash('login')
         return redirect(url_for('index'))
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        user = User.query.filter_by(username=username).first()
-        if user is None or not user.check_password(password):
-            return render_template('login.html', note='用户名或密码错误')
-        login_user(user)
+
+    username = request.form['username']
+    password = request.form['password']
+    user = User.query.filter_by(username=username).first()
+
+    if user is None or not user.check_password(password):
+        flash('用户名或密码错误')
         return redirect(url_for('index'))
-    # the code below is executed if the request method
-    # was GET or the credentials were invalid
-    return render_template('login.html', note='请登录')
+
+    login_user(user)
+    return redirect(url_for('index'))
 
 
-# finished
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     """
@@ -71,7 +69,8 @@ def register():
         if repeat != password:
             return render_template('register.html', note='两次输入的密码不同')
         elif sql.register(username, password):
-            return redirect(url_for('login'))
+            flash('注册成功')
+            return redirect(url_for('index'))
         else:
             return render_template('register.html', note='用户名已存在')
         # res = sql

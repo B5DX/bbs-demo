@@ -29,3 +29,19 @@ function page_jump() {
     }
     return true;
 }
+
+function check_login_data() {
+    const username = document.forms['login_form']['username'].value;
+    const password = document.forms['login_form']['password'].value;
+
+    const datas = [username, password];
+    const result = datas.some(if_empty);
+
+    if (result) {
+        alert('用户名或密码不可为空');
+        document.forms['login_form']['username'].value = '';
+        document.forms['login_form']['password'].value = '';
+        return false;
+    }
+    return true;
+}
