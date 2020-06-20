@@ -1,3 +1,5 @@
+// 用于index页面的js
+
 function open_search_window() {
     // get base url
     var url = document.getElementById('search_form').action;
@@ -17,6 +19,7 @@ function open_search_window() {
 }
 
 function page_jump() {
+    // 输入页面点击跳转按钮时调用
     const next_page = document.forms['jump_form']['page'].value;
     const page_info = document.getElementById('page_info').innerHTML;
     const split_symbol_index = page_info.lastIndexOf('/')
@@ -31,6 +34,7 @@ function page_jump() {
 }
 
 function check_login_data() {
+    // 检验登录数据的基本合法性
     const username = document.forms['login_form']['username'].value;
     const password = document.forms['login_form']['password'].value;
 

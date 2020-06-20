@@ -23,4 +23,4 @@ class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
 
     # 分页展示的设置
-    POSTS_PER_PAGE = 10
+    POSTS_PER_PAGE = 12

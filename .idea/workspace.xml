@@ -19,9 +19,8 @@
     <select>
       <path>
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="BRANCH:origin/master" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:master" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </select>
   </component>
@@ -30,11 +29,10 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/register.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/register.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/util.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/util.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/login.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/register.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/release.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/release.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -356,7 +354,7 @@
       <workItem from="1592534547265" duration="22735000" />
       <workItem from="1592616291119" duration="2980000" />
       <workItem from="1592619308880" duration="25135000" />
-      <workItem from="1592648122312" duration="3083000" />
+      <workItem from="1592648122312" duration="9139000" />
     </task>
     <task id="LOCAL-00001" summary="完成登录和注册，主要页面的简单HTML搭建">
       <created>1591954834997</created>
@@ -407,7 +405,14 @@
       <option name="project" value="LOCAL" />
       <updated>1592643363380</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="修改了登录效果，使用模态框实现，更加美观。使用flask flash实现登录验证信息传递。&#10;目前index基本功能全部实现，发布，个人留言管理完整实现。&#10;剩余任务：个人信息设置、修改，密码修改。&#10;可以考虑扩展的功能：导航条功能，头像上传功能、搜索页，个人主页分页。">
+      <created>1592654395820</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1592654395820</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -427,7 +432,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/master" />
+                        <option value="master" />
                       </list>
                     </value>
                   </entry>
@@ -448,7 +453,8 @@
     <MESSAGE value="完成了分页展示和搜索功能。&#10;未完成功能：跳转分页、个人主页、修改密码。" />
     <MESSAGE value="完成index的所有功能：搜索、跳转页面、翻页；&#10;完成个人主页的信息展示，还需消息管理（编辑和删除），美化界面，实现修改密码；&#10;需要完善登录的方式（例如使用悬浮窗而不是切换页面）；" />
     <MESSAGE value="完成index的所有功能：搜索、跳转页面、翻页、个人留言管理（删除、编辑）；&#10;未完成个人主页的信息展示，信息设置，实现修改密码；&#10;需要完善登录的方式（例如使用悬浮窗而不是切换页面）；" />
-    <option name="LAST_COMMIT_MESSAGE" value="完成index的所有功能：搜索、跳转页面、翻页、个人留言管理（删除、编辑）；&#10;未完成个人主页的信息展示，信息设置，实现修改密码；&#10;需要完善登录的方式（例如使用悬浮窗而不是切换页面）；" />
+    <MESSAGE value="修改了登录效果，使用模态框实现，更加美观。使用flask flash实现登录验证信息传递。&#10;目前index基本功能全部实现，发布，个人留言管理完整实现。&#10;剩余任务：个人信息设置、修改，密码修改。&#10;可以考虑扩展的功能：导航条功能，头像上传功能、搜索页，个人主页分页。" />
+    <option name="LAST_COMMIT_MESSAGE" value="修改了登录效果，使用模态框实现，更加美观。使用flask flash实现登录验证信息传递。&#10;目前index基本功能全部实现，发布，个人留言管理完整实现。&#10;剩余任务：个人信息设置、修改，密码修改。&#10;可以考虑扩展的功能：导航条功能，头像上传功能、搜索页，个人主页分页。" />
   </component>
   <component name="WindowStateProjectService">
     <state x="395" y="91" key="#Inspections" timestamp="1591502184238">
@@ -491,35 +497,35 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="541" y="156" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1592491276863" />
-    <state width="1493" height="382" key="GridCell.Tab.0.bottom" timestamp="1592650146149">
+    <state width="724" height="350" key="GridCell.Tab.0.bottom" timestamp="1592657661206">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="382" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1592650146149" />
+    <state width="724" height="350" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1592657661206" />
     <state width="1869" height="267" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1080.-851.1080.1880@0.0.1920.1040" timestamp="1589333653615" />
-    <state width="1493" height="382" key="GridCell.Tab.0.center" timestamp="1592650146149">
+    <state width="724" height="350" key="GridCell.Tab.0.center" timestamp="1592657661206">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="382" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1592650146149" />
+    <state width="724" height="350" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1592657661206" />
     <state width="1869" height="267" key="GridCell.Tab.0.center/0.0.1920.1040/-1080.-851.1080.1880@0.0.1920.1040" timestamp="1589333653615" />
-    <state width="1493" height="382" key="GridCell.Tab.0.left" timestamp="1592650146148">
+    <state width="724" height="350" key="GridCell.Tab.0.left" timestamp="1592657661206">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="382" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1592650146148" />
+    <state width="724" height="350" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1592657661206" />
     <state width="1869" height="267" key="GridCell.Tab.0.left/0.0.1920.1040/-1080.-851.1080.1880@0.0.1920.1040" timestamp="1589333653615" />
-    <state width="1493" height="382" key="GridCell.Tab.0.right" timestamp="1592650146149">
+    <state width="724" height="350" key="GridCell.Tab.0.right" timestamp="1592657661206">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="382" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1592650146149" />
+    <state width="724" height="350" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1592657661206" />
     <state width="1869" height="267" key="GridCell.Tab.0.right/0.0.1920.1040/-1080.-851.1080.1880@0.0.1920.1040" timestamp="1589333653615" />
     <state x="264" y="60" key="SettingsEditor" timestamp="1591848871030">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="264" y="60" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1591848871030" />
     <state x="330" y="76" key="SettingsEditor/0.0.1920.1040/-1080.-851.1080.1880@0.0.1920.1040" timestamp="1589331296877" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1592643364530">
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1592654399446">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1592643364530" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1592654399446" />
     <state x="513" y="146" key="VcsDiffUtil.ChangesDialog" timestamp="1592648614052">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -528,16 +534,16 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="468" y="10" width="600" height="804" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1592472085555" />
-    <state x="430" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1592538347633">
+    <state x="430" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1592659128461">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="430" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1592538347633" />
+    <state x="430" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1592659128461" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/my_bbs_demo$main.coverage" NAME="main Coverage Results" MODIFIED="1591849054501" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/my_bbs_demo$Flask.coverage" NAME="Flask Coverage Results" MODIFIED="1591878022642" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/bbs_demo$routes__1_.coverage" NAME="routes (1) Coverage Results" MODIFIED="1592643464818" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
-    <SUITE FILE_PATH="coverage/bbs_demo$Flask.coverage" NAME="Flask Coverage Results" MODIFIED="1592648621626" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
+    <SUITE FILE_PATH="coverage/bbs_demo$Flask.coverage" NAME="Flask Coverage Results" MODIFIED="1592657603649" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
     <SUITE FILE_PATH="coverage/bbs_demo$test.coverage" NAME="test Coverage Results" MODIFIED="1592625564823" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/bbs_demo$app.coverage" NAME="app Coverage Results" MODIFIED="1592643432448" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
   </component>

@@ -5,6 +5,13 @@ from math import ceil
 from app import app
 
 
+def guarantee_user_correct(message_id):
+    valid_username = Message.query.filter_by(id=message_id).first().username
+    if valid_username != current_user.username:
+        return False
+    return True
+
+
 @app.route('/')
 def root():
     return redirect(url_for('index'))
@@ -111,7 +118,9 @@ def modify(message_id):
     """
     if not current_user.is_authenticated:
         return redirect(url_for('index'))
-    # 是否需要检测非法访问??
+
+    if not guarantee_user_correct(message_id):
+        return '非法访问，你不是这条留言的主人！'
 
     if request.method == 'POST':
         sql.update(message_id, request.form['content'])
@@ -126,7 +135,25 @@ def modify(message_id):
 def search():
     keyword = request.args.get('keyword')
     result = sql.search_message(keyword)
-    return render_template('search.html', message_list = result, keyword=keyword)
+    return render_template('search.html', message_list=result, keyword=keyword)
+
+
+@app.route('/delete/<message_id>')
+def delete(message_id):
+    if not guarantee_user_correct(message_id):
+        return '非法访问，你不是这条留言的主人！'
+
+    sql.delete(message_id)
+
+    return redirect(url_for('profile'))
+
+
+# TODO: change user password
+@app.route('/change_password', methods=['GET', 'POST'])
+def change_password():
+    if not current_user.is_authenticated:
+        return redirect(url_for('index'))
+    pass
 
 
 @app.route('/logout')
@@ -136,21 +163,6 @@ def logout():
 
     logout_user()
     return redirect(url_for('index'))
-
-
-@app.route('/delete/<message_id>')
-def delete(message_id):
-    sql.delete(message_id)
-    # 未增加删除权限验证
-
-    return redirect(url_for('profile'))
-
-
-@app.route('/change_password', methods=['GET', 'POST'])
-def change_password():
-    if not current_user.is_authenticated:
-        return redirect(url_for('index'))
-    pass
 
 
 if __name__ == '__main__':

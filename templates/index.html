@@ -8,10 +8,31 @@
 	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="../static/js/util.js"></script>
 	<script src="../static/js/index.js"></script>
+	<script type="text/javascript">
+		function set_button() {
+			const cur_page = {{cur_page}};
+			const total_page = {{total_page}};
+
+			var flag = cur_page <= 1;
+			document.getElementById('prev_button').disabled = flag;
+			flag = cur_page >= total_page;
+			document.getElementById('next_button').disabled = flag;
+		}
+
+		function pagination_click(if_click_prev) {
+			const pre_url = '{{pre_url}}';
+			const next_url = '{{next_url}}';
+			if (if_click_prev) {
+				window.location.href = pre_url;
+			} else {
+				window.location.href = next_url;
+			}
+		}
+	</script>
 </head>
 <body>
 <div class="container">
-
+<!--	用于登陆失败和注册成功时的用户提示-->
 	{% with flashed_messages = get_flashed_messages() %}
 	{% if flashed_messages %}
 	{% for message in flashed_messages %}
@@ -22,34 +43,37 @@
 	{% endif %}
 	{% endwith %}
 
+<!--	顶部row，包含搜索和登录等功能按键-->
 	<div class="row" style="margin-top: 3%">
-		<div class="col-sm-2">
-<!--			<button type="button" class="btn btn-default" onclick="window.location.href='index'">查看全部留言</button>-->
-		</div>
-
+		<div class="col-sm-2"></div>
+<!--		搜索功能-->
+<!--		表单提交到url_for('search')，使用get方法-->
 		<div class="col-sm-8" id="func">
 			<div class="col-sm-3"></div>
 			<div class="col-sm-1">
-				<img src="../static/search.png" style="width: 35px; height: 35px;">
+				<label for="search_input"><img src="../static/search.png" style="width: 35px; height: 35px;"></label>
 			</div>
 			<form role="form" class="form-inline" action="{{ url_for('search') }}" method="get" onsubmit="return open_search_window()"
 				  id="search_form" name="search_form">
-				<input type="text" class="form-control" name="keyword">
+				<input type="text" id="search_input" class="form-control" name="keyword">
 				<button class="btn btn-default" type="submit">搜索</button>
 			</form>
 		</div>
 
+<!--		登录的模态框、留言、主页按钮-->
 		<div class="col-sm-2">
-<!--			{% with messages = get_flashed_messages() %}-->
 			{% if current_user.is_authenticated %}
 			<button class="btn btn-success" type="button" onclick="jump2next('release', false)">我要留言</button>
 			<button class="btn btn-default" type="button" onclick="jump2next('profile', false)">我的</button>
 			{% else %}
+<!--			未登录时展示-->
 			<button class="btn btn-success" data-toggle="modal" id="loginButton"
 					data-target="#loginModal" data-href="{{url_for('login')}}">登录
 			</button>
+<!--			表单包裹了整个模态框，将表单用POST方法提交到url_for('login')-->
 			<form class="form-horizontal" role="form" action="{{ url_for('login') }}" method="POST"
 				  name="login_form" onsubmit="return check_login_data()">
+<!--				模态框的开始-->
 			<div class="modal fade text-center" id="loginModal" tabindex="-1" role="dialog"
 				 aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
@@ -59,8 +83,8 @@
 									aria-hidden="true">&times;</button>
 							<h4 class="modal-title" id="myModalLabel">登录</h4>
 						</div>
-						<div class="modal-body">
 
+						<div class="modal-body">
 							<div class="align-center" style="padding-top: 6%">
 								<h2>{{ note }}</h2>
 
@@ -77,28 +101,22 @@
 										</div>
 									</div>
 							</div>
-
 						</div>
-<!--						<div class="modal-footer align-center">-->
-							<div class="form-group" style="padding-bottom: 10%">
-								<button type="submit" class="btn btn-success" style="margin-right: 20px">登录</button>
-								<button type="button" class="btn btn-default" onclick="window.location.href='register'" style="margin-right: 20px">注册</button>
-							</div>
-<!--							<button type="button" class="btn btn-default"-->
-<!--									data-dismiss="modal" onclick="window.location.href='register'">注册</button>-->
-<!--							<button type="button" class="btn btn-success">登录</button>-->
-<!--						</div>-->
+
+						<div class="form-group" style="padding-bottom: 10%">
+							<button type="submit" class="btn btn-success" style="margin-right: 20px">登录</button>
+							<button type="button" class="btn btn-default" onclick="window.location.href='register'" style="margin-right: 20px">注册</button>
+						</div>
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal -->
 			</div>
+<!--				模态框结束-->
 			</form>
 			{% endif %}
-<!--			{% endwith %}-->
-
 		</div>
 	</div>
 
-
+<!--表格主体展示-->
 	<div class="row">
 		<div class="col-sm-1"></div>
 		<div class="col-sm-10">
@@ -129,6 +147,7 @@
 			</table>
 		</div>
 	</div>
+<!--	底部分页展示-->
 	<div class="row" style="margin-bottom: 3%">
 		<div class="col-sm-9">
 			<form class="form-inline" role="form" name="jump_form" method="get" onsubmit="return page_jump()" action="">
@@ -142,12 +161,12 @@
 		</div>
 		<div class="col-sm-2">
 			<div class="btn-group">
-				{% if cur_page != 1 %}
-				<a class="btn btn-default" href="{{pre_url}}">上一页</a>
-				{% endif %}
-				{% if cur_page != total_page %}
-				<a class="btn btn-default" href="{{next_url}}">下一页</a>
-				{% endif %}
+				<button class="btn btn-default" onclick="pagination_click(true)"
+				id="prev_button">上一页</button>
+				<button class="btn btn-default" onclick="pagination_click(false)"
+				id="next_button">下一页</button>
+<!--				设置按钮状态-->
+				<script type="text/javascript">set_button()</script>
 			</div>
 		</div>
 	</div>

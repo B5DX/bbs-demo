@@ -1,4 +1,5 @@
 function validate_data() {
+    // 检验注册页面上传的数据是否合法
     username = document.forms['reg_form']['username'].value;
     password = document.forms['reg_form']['password'].value;
     repeat_password = document.forms['reg_form']['repeat'].value;
