@@ -6,6 +6,10 @@ from app import app
 
 
 @app.route('/')
+def root():
+    return redirect(url_for('index'))
+
+
 @app.route('/index')
 def index():
     """
@@ -81,8 +85,8 @@ def profile():
     """
     if not current_user.is_authenticated:
         return redirect(url_for('index'))
-
-    return render_template('profile.html', username=current_user.username)
+    messages = Message.query.filter_by(username=current_user.username).order_by(Message.time.desc()).all()
+    return render_template('profile.html', username=current_user.username, my_messages=messages)
 
 
 @app.route('/release', methods=['GET', 'POST'])
@@ -101,8 +105,8 @@ def release():
     return render_template('release.html')
 
 
-@app.route('/modify', methods=['GET', 'POST'])
-def modify():
+@app.route('/modify/<message_id>', methods=['GET', 'POST'])
+def modify(message_id):
     """
     modify a message
     """
@@ -116,7 +120,7 @@ def modify():
 def search():
     keyword = request.args.get('keyword')
     result = sql.search_message(keyword)
-    return render_template('search.html', message_list = result)
+    return render_template('search.html', message_list = result, keyword=keyword)
 
 
 @app.route('/logout')

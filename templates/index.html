@@ -7,27 +7,7 @@
 	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
 	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="../static/js/util.js"></script>
-	<script type="text/javascript">
-		function open_search_window() {
-			var url = document.getElementById('search_form').action;
-
-			var keyword = document.forms['search_form']['keyword'].value
-			var query = '?keyword=' + keyword;
-
-			var re = /[^\S*&]/;
-			var flag = re.test(keyword);
-
-			document.forms['search_form']['keyword'].value = '';
-
-			if (keyword.length === 0 || flag) {
-				alert('搜索框中内容为空');
-				return false;
-			}
-
-			window.open(url+query);
-			return false;
-		}
-	</script>
+	<script src="../static/js/index.js"></script>
 </head>
 <body>
 <div class="container">
@@ -79,7 +59,7 @@
 					{% for i in message_list %}
 					<tr>
 						<td class="text-center">{{i.username}}</td>
-						<td class="text-center">
+						<td style="padding-left: 2%">
 							{% for line in i.content.split('\n') %}
 							<p>{{line}}</p>
 							{% endfor %}
@@ -95,14 +75,14 @@
 	</div>
 	<div class="row" style="margin-bottom: 3%">
 		<div class="col-sm-9">
-			<form class="form-inline" role="form" name="jump_form" method="post" onsubmit="" action="">
-				<label for="page"></label>
-				<input id="page" class="form-control col-sm-4" type="number" placeholder="请输入想要跳转的页码">
+			<form class="form-inline" role="form" name="jump_form" method="get" onsubmit="return page_jump()" action="">
+				<label for="next_page"></label>
+				<input id="next_page" name="page" class="form-control col-sm-4" type="number" placeholder="请输入想要跳转的页码">
 				<button class="btn btn-default" type="submit">跳转</button>
 			</form>
 		</div>
 		<div class="col-sm-1">
-			<h5 class="text-info">{{cur_page}}/{{total_page}}</h5>
+			<h5 class="text-info" id="page_info">{{cur_page}}/{{total_page}}</h5>
 		</div>
 		<div class="col-sm-2">
 			<div class="btn-group">

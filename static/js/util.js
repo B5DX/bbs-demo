@@ -6,3 +6,9 @@ function jump2next(next, if_new_window) {
     else
         window.location.href = next_url;
 }
+
+function if_empty(value) {
+    var re = /[^\S*&]/;
+    var flag = re.test(value);
+    return (value.length === 0 || flag);
+}
