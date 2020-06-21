@@ -1,7 +1,6 @@
 from module.model import Message, User, db
 from datetime import datetime
 from util import encryption
-from typing import List
 from sqlalchemy import func, or_
 
 
@@ -38,12 +37,12 @@ def check(content=None, username=None, time=None):
         raise e
 
 
-def exception_handler(func):
+def exception_handler(f):
     def res(*args):
         try:
-            return func(*args)
+            return f(*args)
         except Exception as e:
-            print(f'{func.__name__} failed.')
+            print(f'{f.__name__} failed.')
             print(e)
 
     return res
@@ -53,18 +52,18 @@ class SQL:
     def __init__(self):
         self.__session = db.session
 
-    @exception_handler
-    def login(self, username, password) -> User:
-        cmp = encryption(password)
-        user: list[User] = self.__session.query(User).filter(User.username == username).all()
-        if len(user) == 0:
-            return None
-        else:
-            assert len(user) == 1
-            if user[0].password == cmp:
-                return user[0]
-            else:
-                return None
+    # @exception_handler
+    # def login(self, username, password) -> User:
+    #     cmp = encryption(password)
+    #     user: list[User] = self.__session.query(User).filter(User.username == username).all()
+    #     if len(user) == 0:
+    #         return None
+    #     else:
+    #         assert len(user) == 1
+    #         if user[0].password == cmp:
+    #             return user[0]
+    #         else:
+    #             return None
 
     @exception_handler
     def register(self, username, password) -> bool:
@@ -85,61 +84,57 @@ class SQL:
         self.__session.add(new_message)
         self.__session.commit()
 
-    @exception_handler
-    def user_search(self, user_id) -> User:
-        ls = self.__session.query(User).filter(User.user_id == user_id).all()
-        if len(ls) == 0:
-            return None
-        else:
-            return ls[0]
+    # @exception_handler
+    # def user_search(self, user_id) -> User:
+    #     ls = self.__session.query(User).filter(User.user_id == user_id).all()
+    #     if len(ls) == 0:
+    #         return None
+    #     else:
+    #         return ls[0]
 
-    # def search_message(self, user_id=None, username=None) -> List[Message]:
-    #     try:
-    #         session = self.__session
-    #         res = session.query(Message).filter(Message.is_deleted == 0)
-    #         if isinstance(user_id, int):
-    #             res = res.filter(Message.id == user_id).all()
-    #         elif isinstance(username, str):
-    #             res = res.filter(Message.username == username).all()
-    #         else:
-    #             res = res.all()
-    #         return res
-    #     except Exception:
-    #         print('search failed.')
-    #         return []
-
-    def search_message(self, keyword):
+    @staticmethod
+    def search_message(keyword):
         result = Message.query.filter(
             or_(Message.content.contains(keyword), Message.username.contains(keyword))
         ).all()
         return result
 
     def get_message_length(self):
+        """
+        get the number of all messages, which is used to decide the page number on index.html
+        :return: the number of all messages
+        """
         return self.__session.query(func.count(Message.id)).scalar()
 
     @exception_handler
-    def update(self, message_id, new_content):
-        self.__session.query(Message).filter(Message.id == message_id).update({'content': new_content, 'time': get_time()})
+    def update_message(self, message_id, new_content):
+        self.__session.query(Message).filter(Message.id == message_id).\
+            update({'content': new_content, 'time': get_time()})
         self.__session.commit()
 
     @exception_handler
-    def delete(self, message_id):
+    def delete_message(self, message_id):
         self.__session.query(Message).filter(Message.id == message_id).delete()
         self.__session.commit()
 
-    @exception_handler
-    def complete_delete(self, user_id=None):
-        if not user_id:
-            return
-        session = self.__session
-        session.query(Message).filter(Message.is_deleted == 1, Message.id == user_id).delete()
-        session.commit()
+    # @exception_handler
+    # def complete_delete(self, user_id=None):
+    #     if not user_id:
+    #         return
+    #     session = self.__session
+    #     session.query(Message).filter(Message.is_deleted == 1, Message.id == user_id).delete()
+    #     session.commit()
+
+    # @exception_handler
+    # def clear_recycle_bin(self):
+    #     session = self.__session
+    #     session.query(Message).filter(Message.is_deleted == 1).delete()
+    #     session.commit()
 
     @exception_handler
-    def clear_recycle_bin(self):
-        session = self.__session
-        session.query(Message).filter(Message.is_deleted == 1).delete()
-        session.commit()
+    def change_password(self, user_id, new_password):
+        self.__session.query(User).filter(User.user_id == user_id).update({'password': encryption(new_password)})
+        self.__session.commit()
 
     @exception_handler
     def close(self):

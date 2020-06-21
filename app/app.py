@@ -5,7 +5,11 @@ from math import ceil
 from app import app
 
 
-def guarantee_user_correct(message_id):
+def guarantee_user_correct(message_id) -> bool:
+    """
+    guarantee the current_user is the owner of the target message
+    used for modify or delete a message etc.
+    """
     valid_username = Message.query.filter_by(id=message_id).first().username
     if valid_username != current_user.username:
         return False
@@ -20,8 +24,7 @@ def root():
 @app.route('/index')
 def index():
     """
-    after sign in successfully, show the page for certain user by user_id
-    :return: None
+    homepage
     """
     page = request.args.get('page', 1, type=int)
     message_length = sql.get_message_length()
@@ -39,10 +42,11 @@ def index():
 @app.route('/login', methods=['POST'])
 def login():
     """
-    page for signing in.
+    url for login
+    use a modal in index.html to visit
     :return:
-    if sign in successfully, redirect to a url for certain user
-    else return templates 'sign.html'
+    redirect to 'index.html'
+    if failed, flash an alert message and return templates 'index.html'
     """
     if current_user.is_authenticated:
         return redirect(url_for('index'))
@@ -51,7 +55,11 @@ def login():
     password = request.form['password']
     user = User.query.filter_by(username=username).first()
 
-    if user is None or not user.check_password(password):
+    if user is None:
+        flash('用户名不存在')
+        return redirect(url_for('index'))
+
+    if not user.check_password(password):
         flash('用户名或密码错误')
         return redirect(url_for('index'))
 
@@ -98,7 +106,7 @@ def profile():
 @app.route('/release', methods=['GET', 'POST'])
 def release():
     """
-    release a new message
+    release a new message, need user authentication
     """
     if not current_user.is_authenticated:
         return redirect(url_for('index'))
@@ -115,6 +123,7 @@ def release():
 def modify(message_id):
     """
     modify a message
+    only the user of the message can modify
     """
     if not current_user.is_authenticated:
         return redirect(url_for('index'))
@@ -123,7 +132,7 @@ def modify(message_id):
         return '非法访问，你不是这条留言的主人！'
 
     if request.method == 'POST':
-        sql.update(message_id, request.form['content'])
+        sql.update_message(message_id, request.form['content'])
         return redirect(url_for('profile'))
 
     target_mes: Message = Message.query.filter_by(id=message_id).first()
@@ -133,6 +142,12 @@ def modify(message_id):
 
 @app.route('/search')
 def search():
+    """
+    search a message by keyword and open a new tab to show the results.
+    the query message should satisfy:
+    keyword in message.username or keyword in message.content
+    :return: template 'search.html'
+    """
     keyword = request.args.get('keyword')
     result = sql.search_message(keyword)
     return render_template('search.html', message_list=result, keyword=keyword)
@@ -143,17 +158,27 @@ def delete(message_id):
     if not guarantee_user_correct(message_id):
         return '非法访问，你不是这条留言的主人！'
 
-    sql.delete(message_id)
+    sql.delete_message(message_id)
 
     return redirect(url_for('profile'))
 
 
-# TODO: change user password
 @app.route('/change_password', methods=['GET', 'POST'])
 def change_password():
     if not current_user.is_authenticated:
         return redirect(url_for('index'))
-    pass
+
+    if request.method == 'POST':
+        old_password = request.form['old_password']
+        new_password = request.form['new_password']
+        if not current_user.check_password(old_password):
+            return render_template('change_password.html', note='原密码错误')
+
+        sql.change_password(current_user.user_id, new_password)
+        flash('修改成功')
+        return redirect(url_for('profile'))
+
+    return render_template('change_password.html', note='修改密码')
 
 
 @app.route('/logout')

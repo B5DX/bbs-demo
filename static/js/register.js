@@ -1,8 +1,8 @@
-function validate_data() {
+function check_register_data() {
     // 检验注册页面上传的数据是否合法
-    username = document.forms['reg_form']['username'].value;
-    password = document.forms['reg_form']['password'].value;
-    repeat_password = document.forms['reg_form']['repeat'].value;
+    let username = document.forms['reg_form']['username'].value;
+    let password = document.forms['reg_form']['password'].value;
+    let repeat_password = document.forms['reg_form']['repeat'].value;
 
     if ( repeat_password !== password ) {
         alert('两次输入的密码不相同');
@@ -12,14 +12,8 @@ function validate_data() {
         return false;
     }
 
-    var flag = false;
-    if ( username.length <= 0 || username.length >= 20 ) {
-        flag = true;
-    }
-    if ( password.length <= 0 || password.length >= 20 ) {
-        flag = true
-    }
-    if (flag) {
+    let flag = check_length(username, 'username') && check_length(password, 'password');
+    if (!flag) {
         alert('昵称或密码长度不符合要求');
         document.getElementById('username').value = '';
         document.getElementById('password').value = '';
@@ -27,12 +21,8 @@ function validate_data() {
         return false;
     }
     // username: digits or A-z or Chinese
-    var re = /[^\u4e00-\u9fa5A-z0-9]/;
-    flag = re.test(username);
-    // password: digits or A-z
-    re = /[^A-z0-9]/;
-    flag = flag || re.test(password);
-    if (flag) {
+    flag = check_type(username, 'username') && check_type(password, 'password');
+    if (!flag) {
         alert('昵称或密码输入类型不符合要求');
         document.getElementById('username').value = '';
         document.getElementById('password').value = '';
@@ -41,4 +31,27 @@ function validate_data() {
     }
 
     return true;
+}
+
+function check_length(s, data_type) {
+    // check data length
+    // data_type can be 'password' or 'username'
+    // return true length is valid
+    if (data_type === 'password')
+        return (s.length >= 5 && s.length <= 20);
+    else
+        return (s.length >= 1 && s.length <= 15);
+}
+
+function check_type(s, data_type) {
+    // check data type
+    // data_type can be 'password' or 'username'
+    // return true if data is valid
+    if (data_type === 'password') {
+        let re = /[^A-z0-9]/;
+        return  !re.test(s);
+    } else {
+        let re = /[^\u4e00-\u9fa5A-z0-9]/;
+        return !re.test(s);
+    }
 }

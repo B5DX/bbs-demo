@@ -13,6 +13,16 @@
 			window.location.href = document.getElementById('delButton'+message_id).getAttribute('data-href');
 		}
 	</script>
+<!--	用于接收修改密码成功后的flash-->
+	{% with flashed_messages = get_flashed_messages() %}
+	{% if flashed_messages %}
+	{% for message in flashed_messages %}
+	<script type="text/javascript">
+		alert('{{message}}');
+	</script>
+	{% endfor %}
+	{% endif %}
+	{% endwith %}
 </head>
 <body>
 <div class="container">
@@ -55,7 +65,8 @@
 				<button type="button" class="btn btn-default" onclick="window.location.href='{{url_for('index')}}'">
 					返回首页</button>
 <!--				<button type="button" class="btn btn-default btn-info">编辑信息</button>-->
-				<button type="button" class="btn btn-default btn-info">修改密码</button>
+				<button type="button" class="btn btn-default btn-info"
+						onclick="window.location.href='{{url_for('change_password')}}'">修改密码</button>
 				<button class="btn btn-danger" onclick="jump2next('logout', false)">退出登录</button>
 			</div>
 

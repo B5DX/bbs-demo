@@ -4,7 +4,7 @@ from util import encryption
 
 
 class Message(db.Model):
-    # 表名
+
     __tablename__ = 'message_board'
 
     id = db.Column(db.INTEGER(), primary_key=True)
@@ -16,10 +16,16 @@ class Message(db.Model):
 
 @login.user_loader
 def load_user(user_id):
+    """
+    used for flask_login
+    """
     return User.query.filter_by(user_id=user_id).first()
 
 
 class User(UserMixin, db.Model):
+    """
+    used for flask_login and SQL command
+    """
     __tablename__ = 'users'
 
     user_id = db.Column(db.INTEGER(), primary_key=True)
