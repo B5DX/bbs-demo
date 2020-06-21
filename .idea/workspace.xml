@@ -378,7 +378,7 @@
       <workItem from="1592616291119" duration="2980000" />
       <workItem from="1592619308880" duration="25135000" />
       <workItem from="1592648122312" duration="11114000" />
-      <workItem from="1592709089465" duration="13231000" />
+      <workItem from="1592709089465" duration="14358000" />
     </task>
     <task id="LOCAL-00001" summary="完成登录和注册，主要页面的简单HTML搭建">
       <created>1591954834997</created>
@@ -457,7 +457,14 @@
       <option name="project" value="LOCAL" />
       <updated>1592718793339</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="完成所有基本功能，可以考虑后期扩展，也可以到此为止。">
+      <created>1592726624871</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1592726624871</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -503,7 +510,8 @@
     <MESSAGE value="增加部分注释，完成" />
     <MESSAGE value="增加部分注释，删减了model/SQL.py的无用代码，完成修改密码操作。&#10;目前仅剩profile.html的页面美化。" />
     <MESSAGE value="增加部分注释，修改整合了register.js，删减了model/SQL.py的无用代码，完成修改密码操作。&#10;目前仅剩profile.html的页面美化。" />
-    <option name="LAST_COMMIT_MESSAGE" value="增加部分注释，修改整合了register.js，删减了model/SQL.py的无用代码，完成修改密码操作。&#10;目前仅剩profile.html的页面美化。" />
+    <MESSAGE value="完成所有基本功能，可以考虑后期扩展，也可以到此为止。" />
+    <option name="LAST_COMMIT_MESSAGE" value="完成所有基本功能，可以考虑后期扩展，也可以到此为止。" />
   </component>
   <component name="WindowStateProjectService">
     <state x="395" y="91" key="#Inspections" timestamp="1591502184238">
@@ -546,35 +554,35 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="541" y="156" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1592662151993" />
-    <state width="1493" height="353" key="GridCell.Tab.0.bottom" timestamp="1592725773842">
+    <state width="1493" height="353" key="GridCell.Tab.0.bottom" timestamp="1592733243956">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="353" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1592725773842" />
+    <state width="1493" height="353" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1592733243956" />
     <state width="1869" height="267" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1080.-851.1080.1880@0.0.1920.1040" timestamp="1589333653615" />
-    <state width="1493" height="353" key="GridCell.Tab.0.center" timestamp="1592725773842">
+    <state width="1493" height="353" key="GridCell.Tab.0.center" timestamp="1592733243956">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="353" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1592725773842" />
+    <state width="1493" height="353" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1592733243956" />
     <state width="1869" height="267" key="GridCell.Tab.0.center/0.0.1920.1040/-1080.-851.1080.1880@0.0.1920.1040" timestamp="1589333653615" />
-    <state width="1493" height="353" key="GridCell.Tab.0.left" timestamp="1592725773842">
+    <state width="1493" height="353" key="GridCell.Tab.0.left" timestamp="1592733243956">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="353" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1592725773842" />
+    <state width="1493" height="353" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1592733243956" />
     <state width="1869" height="267" key="GridCell.Tab.0.left/0.0.1920.1040/-1080.-851.1080.1880@0.0.1920.1040" timestamp="1589333653615" />
-    <state width="1493" height="353" key="GridCell.Tab.0.right" timestamp="1592725773842">
+    <state width="1493" height="353" key="GridCell.Tab.0.right" timestamp="1592733243956">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="353" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1592725773842" />
+    <state width="1493" height="353" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1592733243956" />
     <state width="1869" height="267" key="GridCell.Tab.0.right/0.0.1920.1040/-1080.-851.1080.1880@0.0.1920.1040" timestamp="1589333653615" />
     <state x="264" y="60" key="SettingsEditor" timestamp="1591848871030">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="264" y="60" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1591848871030" />
     <state x="330" y="76" key="SettingsEditor/0.0.1920.1040/-1080.-851.1080.1880@0.0.1920.1040" timestamp="1589331296877" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1592718813925">
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1592733236439">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1592718813925" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1592733236439" />
     <state x="513" y="146" key="VcsDiffUtil.ChangesDialog" timestamp="1592648614052">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
