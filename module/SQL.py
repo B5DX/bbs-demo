@@ -52,19 +52,6 @@ class SQL:
     def __init__(self):
         self.__session = db.session
 
-    # @exception_handler
-    # def login(self, username, password) -> User:
-    #     cmp = encryption(password)
-    #     user: list[User] = self.__session.query(User).filter(User.username == username).all()
-    #     if len(user) == 0:
-    #         return None
-    #     else:
-    #         assert len(user) == 1
-    #         if user[0].password == cmp:
-    #             return user[0]
-    #         else:
-    #             return None
-
     @exception_handler
     def register(self, username, password) -> bool:
         res = self.__session.query(User).filter(User.username == username).all()
@@ -83,14 +70,6 @@ class SQL:
         new_message = Message(content=content, username=username, time=get_time(), is_deleted=0)
         self.__session.add(new_message)
         self.__session.commit()
-
-    # @exception_handler
-    # def user_search(self, user_id) -> User:
-    #     ls = self.__session.query(User).filter(User.user_id == user_id).all()
-    #     if len(ls) == 0:
-    #         return None
-    #     else:
-    #         return ls[0]
 
     @staticmethod
     def search_message(keyword):
@@ -117,20 +96,6 @@ class SQL:
         self.__session.query(Message).filter(Message.id == message_id).delete()
         self.__session.commit()
 
-    # @exception_handler
-    # def complete_delete(self, user_id=None):
-    #     if not user_id:
-    #         return
-    #     session = self.__session
-    #     session.query(Message).filter(Message.is_deleted == 1, Message.id == user_id).delete()
-    #     session.commit()
-
-    # @exception_handler
-    # def clear_recycle_bin(self):
-    #     session = self.__session
-    #     session.query(Message).filter(Message.is_deleted == 1).delete()
-    #     session.commit()
-
     @exception_handler
     def change_password(self, user_id, new_password):
         self.__session.query(User).filter(User.user_id == user_id).update({'password': encryption(new_password)})
@@ -142,16 +107,5 @@ class SQL:
 
 
 if __name__ == '__main__':
-    # try:
-    #     sql = SQL()
-    #     sql.insert('test', '小明', get_time())
-    #     sql.delete(10)
-    #     sql.update(1, 'changed', get_time())
-    #     for msg in sql.search(username='wzx'):
-    #         msg: Message
-    #         print(msg.content)
-    #     sql.close()
-    # except Exception:
-    #     exit(0)
     for j in SQL.__dict__:
         print(j)

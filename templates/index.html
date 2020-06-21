@@ -63,8 +63,8 @@
 <!--		登录的模态框、留言、主页按钮-->
 		<div class="col-sm-2">
 			{% if current_user.is_authenticated %}
-			<button class="btn btn-success" type="button" onclick="jump2next('release', false)">我要留言</button>
-			<button class="btn btn-default" type="button" onclick="jump2next('profile', false)">我的</button>
+			<button class="btn btn-success" type="button" onclick="jump('{{url_for('release')}}')">我要留言</button>
+			<button class="btn btn-default" type="button" onclick="jump('{{url_for('profile')}}')">我的</button>
 			{% else %}
 <!--			未登录时展示-->
 			<button class="btn btn-success" data-toggle="modal" id="loginButton"
@@ -133,7 +133,7 @@
 					{% for i in message_list %}
 					<tr>
 						<td class="text-center">{{i.username}}</td>
-						<td style="padding-left: 2%">
+						<td style="padding-left: 1%">
 							{% for line in i.content.split('\n') %}
 							{{line}}<br>
 							{% endfor %}

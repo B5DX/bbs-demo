@@ -27,9 +27,9 @@
 					{% for i in message_list %}
 					<tr>
 						<td class="text-center">{{i.username}}</td>
-						<td class="text-center">
+						<td style="padding-left: 1%">
 							{% for line in i.content.split('\n') %}
-							<p>{{line}}</p>
+							{{line}}<br>
 							{% endfor %}
 						</td>
 						<td class="text-center">
