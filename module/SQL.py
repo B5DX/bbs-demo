@@ -75,7 +75,7 @@ class SQL:
     def search_message(keyword):
         result = Message.query.filter(
             or_(Message.content.contains(keyword), Message.username.contains(keyword))
-        ).all()
+        ).order_by(Message.time.desc()).all()
         return result
 
     def get_message_length(self):
