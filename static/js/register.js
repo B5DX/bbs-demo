@@ -1,5 +1,5 @@
 function check_register_data() {
-    // 检验注册页面上传的数据是否合法
+    // check data on register page
     let username = document.forms['reg_form']['username'].value;
     let password = document.forms['reg_form']['password'].value;
     let repeat_password = document.forms['reg_form']['repeat'].value;

@@ -1,4 +1,4 @@
-// 用于index页面的js
+// js for index.html
 
 function open_search_window() {
     // get base url
@@ -19,11 +19,12 @@ function open_search_window() {
 }
 
 function page_jump() {
-    // 输入页面点击跳转按钮时调用
-    const next_page = document.forms['jump_form']['page'].value;
+    // the pagination 'jump' button on index.html will call this function
+    // check if the input page is valid
+    const next_page = Number(document.forms['jump_form']['page'].value);
     const page_info = document.getElementById('page_info').innerHTML;
     const split_symbol_index = page_info.lastIndexOf('/')
-    const max_page = page_info.substring(split_symbol_index+1, page_info.length);
+    const max_page = Number(page_info.substring(split_symbol_index+1, page_info.length));
 
     if (next_page <=0 || next_page > max_page) {
         document.forms['jump_form']['page'].value = '';
@@ -34,7 +35,7 @@ function page_jump() {
 }
 
 function check_login_data() {
-    // 检验登录数据的基本合法性
+    // validation login data
     const username = document.forms['login_form']['username'].value;
     const password = document.forms['login_form']['password'].value;
 

@@ -53,8 +53,8 @@
 			<div class="col-sm-1">
 				<label for="search_input"><img src="../static/search.png" style="width: 35px; height: 35px;"></label>
 			</div>
-			<form role="form" class="form-inline" action="{{ url_for('search') }}" method="get" onsubmit="return open_search_window()"
-				  id="search_form" name="search_form">
+			<form role="form" class="form-inline" action="{{ url_for('search') }}" method="get"
+				  onsubmit="return open_search_window()" id="search_form" name="search_form">
 				<input type="text" id="search_input" class="form-control" name="keyword">
 				<button class="btn btn-default" type="submit">搜索</button>
 			</form>
@@ -91,13 +91,15 @@
 									<div class="form-group">
 										<label for="username" class="col-sm-4 control-label">用户名</label>
 										<div class="col-sm-5">
-										  <input type="text" class="form-control" id="username" name="username" placeholder="请输入昵称">
+										  <input type="text" class="form-control" id="username" name="username"
+												 placeholder="请输入昵称">
 										</div>
 									</div>
 									<div class="form-group">
 										<label for="password" class="col-sm-4 control-label">密码</label>
 										<div class="col-sm-5">
-										  <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码">
+										  <input type="password" class="form-control" id="password" name="password"
+												 placeholder="请输入密码">
 										</div>
 									</div>
 							</div>
@@ -105,7 +107,8 @@
 
 						<div class="form-group" style="padding-bottom: 10%">
 							<button type="submit" class="btn btn-success" style="margin-right: 20px">登录</button>
-							<button type="button" class="btn btn-default" onclick="window.location.href='register'" style="margin-right: 20px">注册</button>
+							<button type="button" class="btn btn-default" onclick="window.location.href='register'"
+									style="margin-right: 20px">注册</button>
 						</div>
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal -->
@@ -152,7 +155,8 @@
 		<div class="col-sm-9">
 			<form class="form-inline" role="form" name="jump_form" method="get" onsubmit="return page_jump()" action="">
 				<label for="next_page"></label>
-				<input id="next_page" name="page" class="form-control col-sm-4" type="number" placeholder="请输入想要跳转的页码">
+				<input id="next_page" name="page" class="form-control col-sm-4" type="number"
+					   placeholder="请输入想要跳转的页码">
 				<button class="btn btn-default" type="submit">跳转</button>
 			</form>
 		</div>

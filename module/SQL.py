@@ -53,7 +53,7 @@ class SQL:
 
     @exception_handler
     def insert_message(self, content, username):
-        new_message = Message(content=content, username=username, time=get_time(), is_deleted=0)
+        new_message = Message(content=content, username=username, time=get_time())
         self.__session.add(new_message)
         self.__session.commit()
 
