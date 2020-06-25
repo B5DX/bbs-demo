@@ -28,7 +28,7 @@ function page_jump() {
 
     if (next_page <=0 || next_page > max_page) {
         document.forms['jump_form']['page'].value = '';
-        alert('页面越界');
+        alert('页面不合法');
         return false;
     }
     return true;

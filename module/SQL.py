@@ -64,7 +64,7 @@ class SQL:
         ).order_by(Message.time.desc()).all()
         return result
 
-    def get_message_length(self):
+    def get_message_num(self):
         """
         get the number of all messages, which is used to decide the page number on index.html
         :return: the number of all messages

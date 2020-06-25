@@ -14,7 +14,7 @@ function check_register_data() {
 
     let flag = check_length(username, 'username') && check_length(password, 'password');
     if (!flag) {
-        alert('昵称或密码长度不符合要求');
+        alert('用户名或密码长度不符合要求');
         document.getElementById('username').value = '';
         document.getElementById('password').value = '';
         document.getElementById('repeat').value = '';
@@ -23,7 +23,7 @@ function check_register_data() {
     // username: digits or A-z or Chinese
     flag = check_type(username, 'username') && check_type(password, 'password');
     if (!flag) {
-        alert('昵称或密码输入类型不符合要求');
+        alert('用户名或密码输入类型不符合要求');
         document.getElementById('username').value = '';
         document.getElementById('password').value = '';
         document.getElementById('repeat').value = '';

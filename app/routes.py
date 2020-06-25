@@ -27,7 +27,7 @@ def index():
     Homepage
     """
     page = request.args.get('page', 1, type=int)
-    message_length = sql.get_message_length()
+    message_length = sql.get_message_num()
     total_page = ceil(message_length / app.config['POSTS_PER_PAGE'])
     messages = Message.query.order_by(Message.time.desc()).paginate(
         page, app.config['POSTS_PER_PAGE'], False
