@@ -1,12 +1,13 @@
 # 留言板系统
 ## 注意事项
-- 此项目有单独的git仓库，其中有提交记录，是完成开发后方便老师下载放在了这里面。如果需要看提交记录麻烦查看仓库链接<https://github.com/B5DX/bbs-demo>.
+- 此项目有单独的git仓库，其中有提交记录，是完成开发后方便老师下载放在了这里面。如果需要看提交记录麻烦查看仓库链接<https://github.com/B5DX/bbs-demo>。
 - 本项目开发过程使用Pycharm运行一切正常。如果使用cmd运行出现了import错误，解决方法是在app/routes.py文件的**最开头**（要在其他import语句之前）加上如下代码：
 ```python
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 ```
+- 数据库的转储文件为message_board_db.sql，可以方便测试。如果需要修改数据库的配置（如数据库引擎或密码）请前往app\config.py。
 ## 题目描述
 
 题目2：开发设计一个留言板系统；用户登陆后，能发布留言，能对自己发布的留言进行管理；能查看留言列表，分页显示，能根据留言的发布者，和留言内容，做模糊查询；基于flask框架。
@@ -77,4 +78,4 @@ sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 ## 更多
 
-更多内容详见“软件系统开发设计说明文档.docx”
+更多内容详见“软件系统开发设计说明文档.pdf”。
