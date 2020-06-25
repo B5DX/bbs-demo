@@ -7,8 +7,8 @@ from app import app
 
 def guarantee_user_correct(message_id) -> bool:
     """
-    guarantee the current_user is the owner of the target message
-    used for modify or delete a message etc.
+    Guarantee the current_user is the owner of the target message.
+    Used for modify or delete a message etc.
     """
     valid_username = Message.query.filter_by(id=message_id).first().username
     if valid_username != current_user.username:
@@ -24,7 +24,7 @@ def root():
 @app.route('/index')
 def index():
     """
-    homepage
+    Homepage
     """
     page = request.args.get('page', 1, type=int)
     message_length = sql.get_message_length()
@@ -42,11 +42,11 @@ def index():
 @app.route('/login', methods=['POST'])
 def login():
     """
-    url for login
-    use a modal in index.html to visit
+    Route for login.
+    Use a modal in index.html to visit.
     :return:
-    redirect to 'index.html'
-    if failed, flash an alert message and return templates 'index.html'
+    Redirect to 'index.html'.
+    If failed, flash an alert message and return templates 'index.html'.
     """
     if current_user.is_authenticated:
         return redirect(url_for('index'))
@@ -70,10 +70,10 @@ def login():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     """
-    page for register
+    Route for register.
     :return:
-    if register successfully, redirect to '/sign'
-    else, return templates 'register.html'
+    If register successfully, redirect to '/sign'.
+    Else, return templates 'register.html'
     """
     if request.method == 'POST':
         # register
@@ -95,7 +95,7 @@ def register():
 @app.route('/profile')
 def profile():
     """
-    get profile page of certain user
+    Get the profile page of certain user, which show the detailed information of the user.
     """
     if not current_user.is_authenticated:
         return redirect(url_for('index'))
@@ -106,7 +106,7 @@ def profile():
 @app.route('/release', methods=['GET', 'POST'])
 def release():
     """
-    release a new message, need user authentication
+    Release a new message, needing user authentication.
     """
     if not current_user.is_authenticated:
         return redirect(url_for('index'))
@@ -122,8 +122,8 @@ def release():
 @app.route('/modify/<message_id>', methods=['GET', 'POST'])
 def modify(message_id):
     """
-    modify a message
-    only the user of the message can modify
+    Modify a message.
+    Only the user of the message can modify
     """
     if not current_user.is_authenticated:
         return redirect(url_for('index'))
@@ -143,9 +143,9 @@ def modify(message_id):
 @app.route('/search')
 def search():
     """
-    search a message by keyword and open a new tab to show the results.
-    the query message should satisfy:
-    keyword in message.username or keyword in message.content
+    Search a message by keyword and open a new tab to show the results.
+    The query message should satisfy:
+    keyword in message.username or keyword in message.content.
     :return: template 'search.html'
     """
     keyword = request.args.get('keyword')
@@ -155,6 +155,10 @@ def search():
 
 @app.route('/delete/<message_id>')
 def delete(message_id):
+    """
+    Delete a message by message_id.
+    Only the user of the message can delete.
+    """
     if not guarantee_user_correct(message_id):
         return '非法访问，你不是这条留言的主人！'
 
@@ -183,6 +187,9 @@ def change_password():
 
 @app.route('/logout')
 def logout():
+    """
+    Logout a user.
+    """
     if not current_user.is_authenticated:
         return redirect(url_for('index'))
 
