@@ -1,6 +1,5 @@
 # 留言板系统
 ## 注意事项
-- 此项目有单独的git仓库，其中有提交记录，是完成开发后方便老师下载放在了平时作业仓库。如果需要看提交记录麻烦查看仓库链接<https://github.com/B5DX/bbs-demo>。
 - 本项目开发过程使用Pycharm运行一切正常。请以bbs-demo\目录作为项目根目录，创建好项目后直接运行bbs-demo\app\routes.py即可。  
 - 如果使用cmd运行出现了import错误，解决方法是在app\routes.py文件的**最开头**（要在其他import语句之前）加上如下代码：
 ```python
